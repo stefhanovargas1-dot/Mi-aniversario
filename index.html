@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Un sitio interactivo especial con bloqueo de seguridad y diseño premium de acuarela.">
+    <title>Nuestro Día Especial 💖</title>
+    <!-- Google Fonts: Outfit (moderno), Italiana (elegante), y Playfair Display (cursiva clásica para cartas) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Cinzel:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Definiciones de patrones reutilizables (Leopardo) -->
+    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <pattern id="leopard-pattern" width="80" height="80" patternUnits="userSpaceOnUse">
+                <!-- Fondo marrón claro / ocre típico de leopardo -->
+                <rect width="80" height="80" fill="#dfa365"/>
+                <!-- Manchas de leopardo -->
+                <!-- Mancha 1 -->
+                <path d="M15 15 C10 12, 5 25, 12 35 C18 42, 28 32, 25 22 C22 12, 18 18, 15 15 Z" fill="#2d1d16"/>
+                <path d="M16 18 C14 16, 10 24, 14 30 C18 34, 23 28, 21 21 Z" fill="#7d4d31"/>
+                
+                <!-- Mancha 2 -->
+                <path d="M55 20 C50 15, 42 22, 45 32 C48 40, 62 42, 60 28 C58 18, 58 22, 55 20 Z" fill="#2d1d16"/>
+                <path d="M54 23 C51 20, 46 25, 48 30 C50 35, 57 37, 56 27 Z" fill="#7d4d31"/>
+                
+                <!-- Mancha 3 -->
+                <path d="M30 55 C25 50, 15 58, 20 68 C25 75, 40 70, 38 58 C36 48, 32 58, 30 55 Z" fill="#2d1d16"/>
+                <path d="M30 58 C28 55, 20 60, 23 65 C26 70, 34 67, 33 60 Z" fill="#7d4d31"/>
+
+                <!-- Mancha 4 (Pequeña negra sólida de relleno) -->
+                <circle cx="35" cy="10" r="5" fill="#2d1d16"/>
+                <circle cx="70" cy="55" r="6" fill="#2d1d16"/>
+                <path d="M5 50 C2 45, 8 42, 10 48 Z" fill="#2d1d16"/>
+                <path d="M72 10 C70 5, 78 8, 75 12 Z" fill="#2d1d16"/>
+            </pattern>
+        </defs>
+    </svg>
+
+    <!-- 1. PANTALLA DE CARGA (LOADER DE FLORES) -->
+    <div id="loader-wrapper">
+        <div class="loader-container">
+            <div class="flower-spinner">
+                <div class="flower-petal petal-1">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-2">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-3">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-4">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-5">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-6">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-7">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="flower-petal petal-8">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C10.5 4 8.5 7 8.5 10.5C8.5 15 12 17.5 12 17.5C12 17.5 15.5 15 15.5 10.5C15.5 7 13.5 4 12 2Z" />
+                    </svg>
+                </div>
+                <div class="center-heart">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                </div>
+            </div>
+            <p class="loader-text">CARGANDO...</p>
+        </div>
+    </div>
+
+    <!-- 2. PANTALLA DE BLOQUEO (TECLADO NUMÉRICO) -->
+    <div id="lock-screen" class="hidden">
+        <div class="bg-overlay"></div>
+        <main class="lock-container">
+            <div class="lock-card">
+                <header class="lock-header">
+                    <div class="lock-icon-container">
+                        <svg class="heart-lock-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 15C39.5 15 31 23.5 31 34V45H23V80C23 85.5 27.5 90 33 90H67C72.5 90 77 85.5 77 80V45H69V34C69 23.5 60.5 15 50 15ZM39 34C39 27.9 43.9 23 50 23C56.1 23 61 27.9 61 34V45H39V34Z" fill="currentColor" />
+                            <path d="M50 53C45.6 53 42 56.6 42 61C42 63.8 43.4 66.2 45.6 67.6L44 78H56L54.4 67.6C56.6 66.2 58 63.8 58 61C58 56.6 54.4 53 50 53Z" fill="currentColor" class="lock-keyhole" />
+                        </svg>
+                    </div>
+                    <h1 class="lock-title">Un pequeño secreto...</h1>
+                    <p class="lock-prompt">La clave es aquella que recuerda nuestro día especial</p>
+                </header>
+
+                <div class="passcode-dots-wrapper">
+                    <div class="passcode-dot"></div>
+                    <div class="passcode-dot"></div>
+                    <div class="passcode-dot"></div>
+                    <div class="passcode-dot"></div>
+                </div>
+
+                <div class="numeric-keypad">
+                    <button class="key-btn" data-value="1">1</button>
+                    <button class="key-btn" data-value="2">2</button>
+                    <button class="key-btn" data-value="3">3</button>
+                    
+                    <button class="key-btn" data-value="4">4</button>
+                    <button class="key-btn" data-value="5">5</button>
+                    <button class="key-btn" data-value="6">6</button>
+                    
+                    <button class="key-btn" data-value="7">7</button>
+                    <button class="key-btn" data-value="8">8</button>
+                    <button class="key-btn" data-value="9">9</button>
+                    
+                    <div class="key-empty"></div>
+                    <button class="key-btn" data-value="0">0</button>
+                    <button class="key-btn key-action" data-value="delete" aria-label="Borrar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                            <line x1="18" y1="9" x2="12" y2="15"></line>
+                            <line x1="12" y1="9" x2="18" y2="15"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 3. PANTALLA INTERMEDIA DE LA CARTA (TAP TO OPEN EN 3 PASOS) -->
+    <div id="envelope-screen" class="hidden">
+        <div class="envelope-wrapper">
+            <div id="envelope-trigger" class="envelope-container">
+                <img id="envelope-image" src="assets/envelope_1.png" alt="Carta Especial" />
+            </div>
+            <p id="envelope-text" class="envelope-tap-text">Tap to open</p>
+        </div>
+    </div>
+
+    <!-- 4. CONTENEDOR DE LA EXPLOSIÓN DE FOTOS (TRANSICIÓN DE PAREJA PREMIUM) -->
+    <div id="explosion-container" class="hidden">
+        <div class="explosion-flash"></div>
+    </div>
+
+    <!-- 5. APARTADO DESBLOQUEADO (SECCIÓN EN PARALELO: VIDEO Y TEXTO) -->
+    <div id="unlocked-section" class="hidden">
+        <div class="bg-overlay"></div>
+        
+        <!-- Tulipanes decorativos en tonos pastel de fondo (Reemplazan a las estrellas leopardo) -->
+        <div class="bg-tulips-container">
+            <!-- Tulipán 1 (Rosa pastel - Arriba izquierda) -->
+            <svg class="bg-tulip tulip-1" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,110 Q35,80 20,95 Q35,115 50,110" fill="#ebaab3" opacity="0.6"/>
+                <path d="M50,110 Q65,80 80,95 Q65,115 50,110" fill="#ebaab3" opacity="0.6"/>
+                <path d="M50,100 Q30,55 25,40 Q45,50 50,100" fill="#d87f90" opacity="0.75"/>
+                <path d="M50,100 Q70,55 75,40 Q55,50 50,100" fill="#d87f90" opacity="0.75"/>
+                <path d="M50,100 L50,150" stroke="#7a967f" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <!-- Tulipán 2 (Lavanda / Morado - Centro derecha) -->
+            <svg class="bg-tulip tulip-2" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,110 Q35,80 20,95 Q35,115 50,110" fill="#cbb6d9" opacity="0.6"/>
+                <path d="M50,110 Q65,80 80,95 Q65,115 50,110" fill="#cbb6d9" opacity="0.6"/>
+                <path d="M50,100 Q30,55 25,40 Q45,50 50,100" fill="#b59bc9" opacity="0.75"/>
+                <path d="M50,100 Q70,55 75,40 Q55,50 50,100" fill="#b59bc9" opacity="0.75"/>
+                <path d="M50,100 L50,150" stroke="#7a967f" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <!-- Tulipán 3 (Rosa pastel - Abajo izquierda) -->
+            <svg class="bg-tulip tulip-3" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,110 Q35,80 20,95 Q35,115 50,110" fill="#ebaab3" opacity="0.6"/>
+                <path d="M50,110 Q65,80 80,95 Q65,115 50,110" fill="#ebaab3" opacity="0.6"/>
+                <path d="M50,100 Q30,55 25,40 Q45,50 50,100" fill="#d87f90" opacity="0.75"/>
+                <path d="M50,100 Q70,55 75,40 Q55,50 50,100" fill="#d87f90" opacity="0.75"/>
+                <path d="M50,100 L50,150" stroke="#7a967f" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <!-- Tulipán 4 (Morado pastel - Abajo derecha) -->
+            <svg class="bg-tulip tulip-4" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,110 Q35,80 20,95 Q35,115 50,110" fill="#cbb6d9" opacity="0.6"/>
+                <path d="M50,110 Q65,80 80,95 Q65,115 50,110" fill="#cbb6d9" opacity="0.6"/>
+                <path d="M50,100 Q30,55 25,40 Q45,50 50,100" fill="#b59bc9" opacity="0.75"/>
+                <path d="M50,100 Q70,55 75,40 Q55,50 50,100" fill="#b59bc9" opacity="0.75"/>
+                <path d="M50,100 L50,150" stroke="#7a967f" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <main class="unlocked-scroll-container">
+            
+            <!-- Bloque 1: Nuestra Canción & Video de Monsieur Periné -->
+            <section class="romantic-section section-hero">
+                <div class="hero-split">
+                    <!-- Marco de video premium con sombra y bordes curvos -->
+                    <div class="video-container-premium">
+                        <div class="youtube-ratio-box">
+                            <!-- Video local (si el usuario sube assets/video.mp4 a su GitHub) -->
+                            <video id="local-video" class="hidden" controls width="100%" height="100%" style="position: absolute; top:0; left:0; border-radius: 14px; object-fit: cover;">
+                                <source src="assets/video.mp4" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                            <!-- Iframe de YouTube (como fallback por defecto para previsualización directa) -->
+                            <iframe 
+                                id="youtube-iframe"
+                                src="https://www.youtube.com/embed/md_X1KshzT8?autoplay=0&mute=0" 
+                                title="Monsieur Periné - Nuestra Canción" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Escrito elegante y romántico con tulipanes -->
+                    <div class="hero-text-side">
+                        <h2 class="elegant-text-title">nuestra<br><span class="highlight-title">canción</span></h2>
+                        <div class="title-hearts">
+                            <span class="tiny-heart">💖</span>
+                            <span class="tiny-heart">💕</span>
+                            <span class="tiny-heart">🌸</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bloque 2: Carta Romántica Extensa (Colocada arriba tal como solicitaste) -->
+            <section class="romantic-section section-letter">
+                <div class="memories-footer-card watercolor-letter">
+                    
+                    <!-- Ramo de Flores SVG a la Derecha del contenido de la carta (Colores Pastel Acuarela) -->
+                    <div class="flower-bouquet-svg-wrapper">
+                        <svg class="flower-bouquet-svg" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Hojas de fondo -->
+                            <path d="M60,110 Q35,80 20,95 Q35,115 60,110 Z" fill="#7a967f" opacity="0.8"/>
+                            <path d="M60,110 Q85,80 100,95 Q85,115 60,110 Z" fill="#7a967f" opacity="0.8"/>
+                            <path d="M60,100 Q40,55 35,40 Q55,50 60,100 Z" fill="#58735b" opacity="0.85"/>
+                            <path d="M60,100 Q80,55 85,40 Q65,50 60,100 Z" fill="#58735b" opacity="0.85"/>
+                            
+                            <!-- Tallos -->
+                            <path d="M45,150 L60,110 L75,150" stroke="#9bb098" stroke-width="2.5" stroke-linecap="round"/>
+                            <path d="M38,155 L60,110 L82,155" stroke="#9bb098" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M55,165 L60,110 L65,165" stroke="#879c84" stroke-width="3" stroke-linecap="round"/>
+
+                            <!-- Papel de envolver -->
+                            <path d="M60,110 L30,140 C45,165 75,165 90,140 Z" fill="#d7c0ae" stroke="#bda390" stroke-width="1.5"/>
+                            <!-- Listón / Lazo verde -->
+                            <ellipse cx="60" cy="135" rx="10" ry="4" fill="#58735b"/>
+                            <path d="M50,135 Q40,145 42,155" stroke="#58735b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M70,135 Q80,145 78,155" stroke="#58735b" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Flores Rojas/Rosas en Tonos Acuarela Suave -->
+                            <!-- Flor Izquierda -->
+                            <g transform="translate(15, 65) scale(0.75)">
+                                <path d="M15,15 C5,5 0,20 15,30 C30,20 25,5 15,15" fill="#e8a4b8"/>
+                                <path d="M15,15 C10,-2 20,-2 15,15" fill="#ebaab3"/>
+                                <circle cx="15" cy="18" r="3" fill="#ffeb99"/>
+                            </g>
+                            <!-- Flor Derecha -->
+                            <g transform="translate(75, 60) scale(0.75) rotate(15)">
+                                <path d="M15,15 C5,5 0,20 15,30 C30,20 25,5 15,15" fill="#e8a4b8"/>
+                                <path d="M15,15 C10,-2 20,-2 15,15" fill="#ebaab3"/>
+                                <circle cx="15" cy="18" r="3" fill="#ffeb99"/>
+                            </g>
+                            <!-- Flor Centro -->
+                            <g transform="translate(42, 42) scale(0.95)">
+                                <path d="M15,15 C5,5 0,20 15,30 C30,20 25,5 15,15" fill="#d87f90"/>
+                                <path d="M15,15 C10,-2 20,-2 15,15" fill="#ebaab3"/>
+                                <circle cx="15" cy="18" r="3" fill="#ffeb99"/>
+                            </g>
+                            <!-- Flores Lavanda/Crema de Relleno -->
+                            <g transform="translate(32, 65) scale(0.55)">
+                                <path d="M15,15 C5,5 0,20 15,30 C30,20 25,5 15,15" fill="#cbb6d9"/>
+                                <circle cx="15" cy="18" r="2.5" fill="#ffeb99"/>
+                            </g>
+                            <g transform="translate(58, 65) scale(0.55)">
+                                <path d="M15,15 C5,5 0,20 15,30 C30,20 25,5 15,15" fill="#fadcce"/>
+                                <circle cx="15" cy="18" r="2.5" fill="#ffeb99"/>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Sello de Cera Realista en la Carta -->
+                    <div class="wax-seal-wrapper">
+                        <div class="wax-seal">
+                            <div class="wax-seal-inner">
+                                <span>P&A</span>
+                            </div>
+                        </div>
+                        <div class="wax-seal-labels">
+                            <span class="seal-label seal-from">De: Piero</span>
+                            <span class="seal-label seal-to">Para: Alexandra</span>
+                        </div>
+                    </div>
+
+                    <!-- Cuerpo de la carta con el texto extenso formateado -->
+                    <div class="letter-body-content">
+                        <span class="letter-salutation">Mi Ale hermosa,</span>
+                        
+                        <p class="letter-paragraph">Hoy cumplimos un mes más juntos, y aunque podría parecer “solo un mes más”, para mí significa muchísimo. Porque cada día contigo tiene algo especial, algo que no puedo explicar del todo, pero que siento profundamente. Es como si desde que llegaste a mi vida todo hubiera encontrado un lugar más bonito, más tranquilo, más cálido. Y quería escribirte esta carta para que tengas guardadas todas esas cosas que a veces siento demasiado grandes para decirlas en voz alta.</p>
+                        
+                        <p class="letter-paragraph">Primero quiero decirte gracias. Gracias por existir de la manera tan bonita en la que existes. Gracias por quedarte, por acompañarme, por abrazarme incluso en mis peores momentos. No sé si tú eres consciente del efecto que tienes en mí, pero de verdad logras que todo sea más ligero. Eres mi lugar seguro, la persona a la que puedo acudir cuando me siento feliz, triste, confundido, cansado o incluso cuando no sé cómo explicar lo que siento. Contigo nunca tengo miedo de ser yo.</p>
+                        
+                        <p class="letter-paragraph">Y si te soy sincero, hay algo de ti que nunca voy a superar: tus ojos. Dios… tus ojos. Hay algo en ellos que me desarma completamente. No importa cuántas veces los vea, siempre termino perdiéndome ahí. Tienen una forma tan linda de mirarme que siento paz instantáneamente. Tus ojos me hacen sentir querido incluso cuando no dices nada. A veces pienso que podrían pasar mil cosas alrededor, pero si tú me miras, todo deja de importar. Son tan bonitos que hasta cuando estás seria sigues viéndote preciosa. Y cuando sonríes mientras me miras… honestamente siento que no existe nada más hermoso en este mundo.</p>
+                        
+                        <p class="letter-paragraph">Pero no es solo tu belleza, aunque claramente eres la niña más linda que he conocido. Es la manera en la que cuidas, la forma en la que te preocupas por mí, cómo sabes cuándo necesito apoyo aunque yo no lo diga. Siempre estás conmigo, en las buenas y en las malas. Y créeme cuando te digo que eso vale muchísimo. Porque hoy en día es difícil encontrar a alguien que realmente permanezca, alguien que no salga corriendo cuando las cosas se ponen difíciles. Y tú te quedaste.</p>
+                        
+                        <p class="letter-paragraph">Hubo momentos complicados entre nosotros, momentos que dolieron muchísimo. Y quiero hablar de eso también, porque nuestra historia no es perfecta, pero precisamente por eso es real. Pasamos por un problema muy fuerte que en algún momento nos rompió por dentro. Recuerdo lo mucho que dolió sentirte lejos, sentir que quizá todo lo que habíamos construido podía terminar. Fueron días pesados, llenos de tristeza, dudas y silencios que me hacían falta. Creo que nunca te dije completamente cuánto me afectó todo eso. Había noches donde literalmente me quedaba pensando en nosotros, en cada recuerdo, en cada conversación, preguntándome si algún día volveríamos a estar bien.</p>
+                        
+                        <p class="letter-paragraph" style="text-align: center; font-style: italic; font-weight: 500; font-size: 1.1rem; color: var(--clr-accent); margin: 1rem 0;">Y aun así, aquí estamos.</p>
+                        <p class="letter-paragraph" style="text-align: center; font-style: italic; font-weight: 600; font-size: 1.15rem; color: var(--clr-accent); margin-bottom: 1rem;">Y eso hace que te ame todavía más.</p>
+                        
+                        <p class="letter-paragraph">Porque pudimos superar algo que parecía enorme. Porque a pesar del dolor, del miedo y de las heridas, elegimos volver a encontrarnos. Elegimos hablar, entendernos, sanar y seguir adelante juntos. Y eso tiene muchísimo valor para mí. No cualquiera lucha por amor de verdad. No cualquiera se queda a reconstruir algo cuando sería más fácil rendirse. Pero tú y yo lo hicimos. Y honestamente siento que después de todo eso nuestra relación se volvió más fuerte, más sincera y más real.</p>
+                        
+                        <p class="letter-paragraph">Ale, tú eres una de las personas más importantes de mi vida. No tienes idea de lo feliz que me hace ver cómo mi familia te quiere tanto. Me encanta ver cómo encajas con ellos de una manera tan natural, cómo te reciben con cariño, cómo hablan de ti con una sonrisa. Eso me hace sentir orgulloso y feliz, porque la mujer que amo también logró ganarse el corazón de las personas más importantes para mí. Y sinceramente no podría pedir algo más bonito que eso.</p>
+                        
+                        <p class="letter-paragraph">A veces me pongo a pensar en todo lo que hemos vivido hasta ahora, en nuestras conversaciones, nuestras risas, los momentos tiernos, las bromas tontas, los mensajes largos de madrugada, las veces que me tranquilizaste sin siquiera darte cuenta. Y me doy cuenta de que contigo encontré algo que nunca quiero perder. Encontré amor de verdad. Un amor que no solo está en los momentos bonitos, sino también en los difíciles. Un amor que permanece.</p>
+                        
+                        <p class="letter-paragraph">Quiero que sepas que voy a dar siempre todo de mí por ti. Siempre. Porque tú lo vales. Porque mereces un amor bonito, seguro, tranquilo y sincero. Y yo quiero ser esa persona para ti todos los días. Quiero seguir aprendiendo a amarte mejor, seguir creciendo contigo, seguir construyendo recuerdos que algún día miremos atrás y nos hagan sonreír.</p>
+                        
+                        <p class="letter-paragraph">Quiero seguir viendo tus ojos brillando mientras me cuentas algo que te emociona. Quiero seguir abrazándote cuando tengas miedo o estés triste. Quiero seguir siendo tu apoyo así como tú eres el mío. Quiero seguir celebrando meses, años y todos los momentos posibles contigo.</p>
+                        
+                        <p class="letter-paragraph">Y aunque a veces no encuentre las palabras perfectas, quiero que nunca dudes de esto: te amo muchísimo. Más de lo que probablemente logro demostrar. Te amo por tu manera de ser, por tu corazón tan bonito, por tu paciencia, por tu dulzura, por tu fuerza, por quedarte conmigo incluso cuando las cosas no fueron fáciles. Te amo por ser tú.</p>
+                        
+                        <p class="letter-paragraph" style="margin-top: 1.5rem; font-style: italic; color: var(--clr-text-muted); line-height: 1.7; border-left: 2px solid var(--clr-watercolor-pink); padding-left: 1rem;">
+                            Gracias por convertirte en mi hogar.<br>
+                            Gracias por hacerme sentir amado.<br>
+                            Gracias por tomar mi mano incluso después de las tormentas.<br>
+                            Gracias por seguir aquí.
+                        </p>
+                        
+                        <p class="letter-paragraph" style="font-weight: 600; color: var(--clr-accent); font-size: 1.1rem; margin-top: 1.2rem;">
+                            Feliz aniversario, mi amor.<br>
+                            Por este mes más juntos, por todo lo que ya vivimos y por todo lo hermoso que todavía nos queda por vivir.
+                        </p>
+                        
+                        <span class="romantic-signature" style="margin-top: 1.8rem;">Con todo mi amor, siempre. Piero 💖</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bloque 3: Divisor del Candado de Corazón (Lock and Key animado) -->
+            <div class="lock-divider-container">
+                <div class="watercolor-lock-wrapper">
+                    <!-- SVG de Candado de Corazón y Llave con aspecto premium acuarela -->
+                    <svg class="heart-lock-watercolor" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Candado de Corazón -->
+                        <path d="M50 10C36.8 10 26 20.8 26 34V46H18V82C18 87.5 22.5 92 28 92H72C77.5 92 82 87.5 82 82V46H74V34C74 20.8 63.2 10 50 10ZM36 34C36 26.3 42.3 20 50 20C57.7 20 64 26.3 64 34V46H36V34Z" fill="#E8A4B8" class="lock-body-svg"/>
+                        <!-- Ojo de cerradura -->
+                        <path d="M50 56C46.7 56 44 58.7 44 62C44 64.2 45.2 66.1 47 67.1L45.5 76H54.5L53 67.1C54.8 66.1 56 64.2 56 62C56 58.7 53.3 56 50 56Z" fill="#FFFFFF"/>
+                        <!-- Llave flotante al costado -->
+                        <g class="floating-key-svg">
+                            <circle cx="85" cy="30" r="8" stroke="#C9A4C8" stroke-width="3" fill="none"/>
+                            <path d="M85 38V62H79V56H85V50H79V44H85" stroke="#C9A4C8" stroke-width="3" stroke-linecap="round"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="lock-divider-line"></div>
+            </div>
+
+            <!-- Bloque 4: Collage de 4 Fotos Grandes y Medianas (Nuestro beso, Ropa formal, etc.) -->
+            <section class="romantic-section section-collage">
+                <div class="memories-collage-wrapper">
+                    <!-- Ilustraciones de Tulipanes decorativos rodeando el collage -->
+                    <div class="watercolor-tulips-decor decor-top"></div>
+                    
+                    <div class="collage-pile">
+                        <!-- Polaroid 1 (Grande) -->
+                        <div class="collage-polaroid polaroid-1">
+                            <div class="polaroid-inner">
+                                <img src="assets/photos/media__1779934944120.png" alt="Foto de recuerdo" />
+                                <canvas class="scratch-canvas"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Polaroid 2 (Mediana) -->
+                        <div class="collage-polaroid polaroid-2">
+                            <div class="polaroid-inner">
+                                <img src="assets/photos/media__1779935118942.jpg" alt="Foto de recuerdo" />
+                                <canvas class="scratch-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Polaroid 3 (Grande) -->
+                        <div class="collage-polaroid polaroid-3">
+                            <div class="polaroid-inner">
+                                <img src="assets/photos/media__1779935032240.png" alt="Foto de recuerdo" />
+                                <canvas class="scratch-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Polaroid 4 (Mediana) -->
+                        <div class="collage-polaroid polaroid-4">
+                            <div class="polaroid-inner">
+                                <img src="assets/photos/media__1779934938353.png" alt="Foto de recuerdo" />
+                                <canvas class="scratch-canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ilustraciones de Tulipanes decorativos inferiores -->
+                    <div class="watercolor-tulips-decor decor-bottom"></div>
+                </div>
+            </section>
+
+            <!-- Bloque 5: Título Final en Mayúsculas y Letra Grande -->
+            <footer class="romantic-footer-title">
+                <h2 class="final-romantic-title">MI NIÑA DE OJOS BELLOS</h2>
+                <div class="footer-hearts">🌸 💕 💖 💕 🌸</div>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1330 @@
+/* ==========================================================================
+   SISTEMA DE DISEÑO - PALETA ACUARELA ROSA & LAVANDA
+   ========================================================================== */
+:root {
+    --font-primary: 'Outfit', sans-serif;
+    --font-elegant: 'Italiana', serif;
+    --font-cursive: 'Playfair Display', serif;
+    
+    /* Colores Acuarela (Extraídos de las imágenes guía) */
+    --clr-bg-loader: #FDF7F7;        /* Crema suave */
+    --clr-text-main: #6B4E56;        /* Tono dusty rose oscuro */
+    --clr-text-muted: #9E8289;       /* Rose grisáceo */
+    --clr-watercolor-pink: #EBAAB3;  /* Rosa tulipán */
+    --clr-watercolor-pink-light: #FADCE0; /* Rosa pastel muy claro */
+    --clr-lavender: #CBB6D9;         /* Lavanda suave */
+    --clr-accent: #D87F90;           /* Rosa acento */
+    
+    /* Botones y Teclado */
+    --key-bg: rgba(254, 243, 244, 0.9);
+    --key-border: rgba(229, 192, 197, 0.4);
+    --key-shadow: rgba(119, 78, 86, 0.08);
+    --key-active: #F4CCD2;
+    
+    /* Efecto Glassmorphism Acuarela */
+    --glass-bg: rgba(255, 255, 255, 0.78);
+    --glass-border: rgba(255, 255, 255, 0.65);
+    --glass-shadow: rgba(107, 78, 86, 0.12);
+    
+    /* Transiciones */
+    --transition-smooth: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-fast: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================================================
+   RESET & CONFIGURACIÓN
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: var(--font-primary);
+    background-color: var(--clr-bg-loader);
+    color: var(--clr-text-main);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   PANTALLA DE CARGA (LOADER FLORES EN CÍRCULO)
+   ========================================================================== */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--clr-bg-loader);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1), visibility 0.8s;
+}
+
+#loader-wrapper.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.flower-spinner {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flower-petal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 26px;
+    height: 26px;
+    margin-top: -13px;
+    margin-left: -13px;
+    color: var(--clr-watercolor-pink-light);
+    transform-origin: center center;
+    animation: fadeFlower 1.8s ease-in-out infinite;
+}
+
+.flower-petal svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(180deg);
+}
+
+.center-heart {
+    width: 22px;
+    height: 22px;
+    color: var(--clr-accent);
+    position: absolute;
+    animation: pulseHeart 1.2s ease-in-out infinite;
+}
+
+.center-heart svg {
+    width: 100%;
+    height: 100%;
+}
+
+.petal-1 { --rot: 0deg; animation-delay: 0s; }
+.petal-2 { --rot: 45deg; animation-delay: 0.225s; }
+.petal-3 { --rot: 90deg; animation-delay: 0.45s; }
+.petal-4 { --rot: 135deg; animation-delay: 0.675s; }
+.petal-5 { --rot: 180deg; animation-delay: 0.9s; }
+.petal-6 { --rot: 225deg; animation-delay: 1.125s; }
+.petal-7 { --rot: 270deg; animation-delay: 1.35s; }
+.petal-8 { --rot: 315deg; animation-delay: 1.575s; }
+
+.loader-text {
+    font-family: var(--font-elegant);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: var(--clr-text-muted);
+    animation: pulseText 2.4s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   PANTALLA DE BLOQUEO (LOCKED SCREEN)
+   ========================================================================== */
+#lock-screen {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url('assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 2rem 1rem;
+}
+
+#lock-screen.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(253, 247, 247, 0.1) 0%, rgba(253, 247, 247, 0.55) 100%);
+    backdrop-filter: blur(2px);
+    z-index: 1;
+}
+
+.lock-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+}
+
+.lock-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 15px 35px var(--glass-shadow);
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.lock-icon-container {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 1.2rem;
+    color: var(--clr-accent);
+    opacity: 0.85;
+}
+
+.heart-lock-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 4px 8px rgba(216, 127, 144, 0.25));
+}
+
+.lock-keyhole {
+    animation: keyholePulse 2s ease-in-out infinite;
+}
+
+.lock-title {
+    font-family: var(--font-elegant);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--clr-text-main);
+    margin-bottom: 0.4rem;
+}
+
+.lock-prompt {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--clr-text-muted);
+    margin-bottom: 1.8rem;
+    padding: 0 0.5rem;
+}
+
+.passcode-dots-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.passcode-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--clr-text-muted);
+    background-color: transparent;
+    transition: var(--transition-fast);
+}
+
+.passcode-dot.filled {
+    background-color: var(--clr-accent);
+    border-color: var(--clr-accent);
+    transform: scale(1.2);
+    box-shadow: 0 0 10px rgba(216, 127, 144, 0.4);
+}
+
+.passcode-dots-wrapper.shake {
+    animation: shakeDots 0.5s ease-in-out;
+    border-color: var(--clr-accent);
+}
+
+.numeric-keypad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    justify-items: center;
+    max-width: 290px;
+    margin: 0 auto;
+}
+
+.key-btn {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    border: 1px solid var(--key-border);
+    background-color: var(--key-bg);
+    box-shadow: 0 4px 8px var(--key-shadow);
+    color: var(--clr-text-main);
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition-fast);
+    outline: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.key-btn:active {
+    background-color: var(--key-active);
+    transform: scale(0.92);
+}
+
+.key-btn.key-action {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    color: var(--clr-text-muted);
+}
+
+.key-btn.key-action svg {
+    width: 26px;
+    height: 26px;
+}
+
+.key-btn.key-action:active {
+    transform: scale(0.9);
+    color: var(--clr-accent);
+    background-color: transparent;
+}
+
+.key-empty {
+    width: 68px;
+    height: 68px;
+}
+
+/* ==========================================================================
+   PANTALLA INTERMEDIA DE LA CARTA (ENVELOPE SCREEN EN 3 PASOS)
+   ========================================================================== */
+#envelope-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #F8F2E6; /* Crema cálido de la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#envelope-screen.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.envelope-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+}
+
+.envelope-container {
+    width: 320px;
+    max-width: 90vw;
+    cursor: pointer;
+    transform: translateY(0) scale(1);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+    filter: drop-shadow(0 10px 25px rgba(119, 78, 86, 0.15));
+    will-change: transform, filter;
+}
+
+.envelope-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Efecto hover flotante (cuando no está presionado agresivamente) */
+.envelope-container:not(.press-1):not(.press-2):not(.preparing-explosion):hover {
+    transform: translateY(-8px) scale(1.03);
+}
+
+/* --- Estados de Presión Físicos del Sobre --- */
+.envelope-container.press-1 {
+    transform: scale(1.1);
+    animation: shakeMild 0.6s ease-in-out infinite;
+    filter: drop-shadow(0 12px 28px rgba(119, 78, 86, 0.2));
+}
+
+.envelope-container.press-2 {
+    transform: scale(1.25);
+    animation: shakeIntense 0.4s ease-in-out infinite;
+    filter: drop-shadow(0 15px 35px rgba(216, 127, 144, 0.45)) drop-shadow(0 0 15px rgba(216, 127, 144, 0.3));
+}
+
+.envelope-container.preparing-explosion {
+    transform: scale(1.45);
+    animation: shakeMax 0.25s linear infinite;
+    filter: drop-shadow(0 20px 45px rgba(216, 127, 144, 0.75)) drop-shadow(0 0 25px rgba(216, 127, 144, 0.5));
+}
+
+.envelope-container.exploded {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 0.3s ease;
+}
+
+.envelope-tap-text {
+    font-family: var(--font-cursive);
+    font-style: italic;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #B54251; /* Rojo de la carta */
+    letter-spacing: 1px;
+    animation: pulseText 2s infinite;
+    transition: color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+}
+
+.envelope-tap-text.shaking {
+    animation: pulseText 1s infinite, shakeMild 0.8s ease-in-out infinite;
+    color: var(--clr-accent);
+}
+
+.envelope-tap-text.glow {
+    animation: pulseText 0.6s infinite, shakeIntense 0.5s ease-in-out infinite;
+    color: #B54251;
+    text-shadow: 0 0 8px rgba(216, 127, 144, 0.5);
+}
+
+/* ==========================================================================
+   SUPERPOSICIÓN DE LA EXPLOSIÓN DE FOTOS (EXPLOSION CONTAINER)
+   ========================================================================== */
+#explosion-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* Transparente para revelar la sección final por detrás al caer las fotos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+    transition: opacity 0.5s ease;
+}
+
+#explosion-container.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Destello de Choque de la Explosión */
+.explosion-flash {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #FFFFFF 15%, rgba(250, 220, 224, 0.9) 60%, transparent 100%);
+    opacity: 0;
+    z-index: 1005;
+    pointer-events: none;
+}
+
+.explosion-flash.active {
+    animation: flashShockwave 0.7s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* Tarjetas Polaroid Premium */
+.polaroid-card {
+    position: absolute;
+    width: 135px;
+    height: 165px;
+    background-color: #FFFFFF;
+    border: 3px solid #FFFFFF;            /* Marco blanco más fino y elegante */
+    border-bottom: 12px solid #FFFFFF;    /* Margen inferior reducido de 20px a 12px */
+    box-shadow: 0 8px 20px rgba(107, 78, 86, 0.14);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0, 0) scale(0) rotate(0deg);
+    will-change: transform, opacity;
+    z-index: 1002;
+    animation-fill-mode: forwards;
+}
+
+.polaroid-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Sombra e iluminación interna para un toque premium en 3D */
+.polaroid-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.04);
+    pointer-events: none;
+}
+
+/* Partículas Decorativas (Pétalos de Acuarela y Corazones) */
+.explosion-particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1001;
+    will-change: transform, opacity;
+}
+
+/* ==========================================================================
+   APARTADO DESBLOQUEADO (DISEÑO CONTINUO DE TARJETA SCROLLABLE VERTICAL)
+   ========================================================================== */
+#unlocked-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #780d19 0%, #3a0006 100%);
+    display: block; /* Permite el flujo vertical y el scroll natural */
+    overflow-y: auto;
+    opacity: 0;
+    transform: scale(1.02);
+    transition: opacity 1.5s cubic-bezier(0.25, 1, 0.5, 1), transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 4rem 1.5rem;
+}
+
+#unlocked-section.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.unlocked-scroll-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px; /* Ancho completo fluido en escritorio */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4.5rem;
+    padding: 3rem 5vw;
+    background: transparent; /* Remueve la tarjeta blanca central */
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+    animation: slideCardUp 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@media (max-width: 580px) {
+    .unlocked-scroll-container {
+        padding: 2rem 1.25rem;
+        gap: 3.5rem;
+    }
+    #unlocked-section {
+        padding: 2rem 0.5rem;
+    }
+}
+
+/* Bloque 1: Split Hero (Youtube Player + Título) */
+.hero-split {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2.5rem;
+    align-items: center;
+    width: 100%;
+}
+
+@media (max-width: 680px) {
+    .hero-split {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.8rem;
+    }
+}
+
+.video-container-premium {
+    background: #FFFFFF;
+    border: 5px solid #FFFFFF;
+    box-shadow: 0 10px 30px rgba(107, 78, 86, 0.14);
+    border-radius: 20px;
+    padding: 5px;
+    overflow: hidden;
+    transform: rotate(-1.5deg);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    will-change: transform;
+}
+
+.video-container-premium:hover {
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 0 15px 38px rgba(216, 127, 144, 0.25);
+}
+
+.youtube-ratio-box {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* Relación 16:9 */
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.youtube-ratio-box iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.hero-text-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1rem;
+}
+
+@media (max-width: 680px) {
+    .hero-text-side {
+        padding-left: 0;
+        align-items: center;
+    }
+}
+
+.elegant-text-title {
+    font-family: var(--font-primary); /* Outfit */
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 3.2rem;
+    font-weight: 800;
+    color: var(--clr-text-main);
+    line-height: 1.05;
+    letter-spacing: 1px;
+}
+
+.highlight-title {
+    font-family: var(--font-primary); /* Outfit */
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 4.5rem;
+    color: var(--clr-accent);
+    font-weight: 900;
+    letter-spacing: 2px;
+    display: inline-block;
+}
+
+.title-hearts {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.tiny-heart {
+    animation: heartGlowPulse 2s ease-in-out infinite;
+}
+.tiny-heart:nth-child(2) { animation-delay: 0.4s; }
+.tiny-heart:nth-child(3) { animation-delay: 0.8s; }
+
+/* Bloque 2: Lock and Key Divider */
+.lock-divider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    margin: 1.5rem 0;
+    width: 100%;
+}
+
+.lock-divider-line {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(158, 130, 137, 0.22) 50%, transparent);
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+}
+
+.watercolor-lock-wrapper {
+    width: 72px;
+    height: 72px;
+    background: #FFFFFF;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(107, 78, 86, 0.08);
+    border: 1px solid rgba(229, 192, 197, 0.3);
+    z-index: 2;
+    padding: 8px;
+    transition: transform 0.4s ease;
+}
+
+.watercolor-lock-wrapper:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.heart-lock-watercolor {
+    width: 100%;
+    height: 100%;
+}
+
+.lock-body-svg {
+    animation: lockPulse 2s ease-in-out infinite;
+}
+
+.floating-key-svg {
+    animation: keyFloat 2.5s ease-in-out infinite;
+    transform-origin: 85px 30px;
+}
+
+/* Bloque 3: Memories Collage Stack (Fiel a la Guía Visual) */
+.memories-collage-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;
+}
+
+.collage-pile {
+    position: relative;
+    width: 100%;
+    height: auto; /* Fluido */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem 1.5rem;
+    margin-top: 1.5rem;
+    z-index: 2;
+    padding: 1.5rem 0;
+}
+
+.collage-polaroid {
+    position: relative; /* Relative para que envuelva en flex box */
+    background: #FFFFFF;
+    padding: 24px 24px 64px 24px; /* Gran margen blanco de 24px arriba/lados y 64px abajo */
+    box-shadow: 0 10px 22px rgba(107, 78, 86, 0.11);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 0.4s ease;
+    will-change: transform;
+}
+
+.polaroid-inner {
+    position: relative;
+    width: 100%;
+}
+
+/* Quitar animación de zoom/escala en hover */
+.collage-polaroid:hover {
+    transform: none !important;
+    box-shadow: 0 14px 28px rgba(107, 78, 86, 0.16);
+    z-index: 10;
+}
+
+.collage-polaroid img {
+    width: 100%;
+    height: 165px;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+}
+
+@media (max-width: 580px) {
+    .collage-polaroid {
+        padding: 16px 16px 42px 16px; /* Margen blanco en móvil */
+        border: none;
+    }
+}
+
+
+
+/* Tulipanes Acuarela Pintados de Fondo */
+.watercolor-tulips-decor {
+    position: absolute;
+    width: 140px;
+    height: 220px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.decor-top {
+    top: -160px;
+    right: -70px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg"><path d="M50 120 C40 85, 25 50, 48 10 C62 48, 60 85, 50 120 M38 125 C30 95, 12 75, 25 40 C38 75, 42 95, 38 125 M62 125 C70 95, 88 75, 75 40 C62 75, 58 95, 62 125" fill="%23E8A4B8" opacity="0.75"/><path d="M42 25 C45 35, 55 35, 48 10 C40 25, 40 30, 42 25" fill="%23EBAAB3"/><path d="M50 120 L50 150 M38 125 L38 150 M62 125 L62 150" stroke="%239E8289" stroke-width="3" stroke-linecap="round"/></svg>');
+    transform: rotate(25deg);
+}
+
+.decor-bottom {
+    bottom: -30px;
+    left: -80px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg"><path d="M50 120 C40 85, 25 50, 48 10 C62 48, 60 85, 50 120 M38 125 C30 95, 12 75, 25 40 C38 75, 42 95, 38 125 M62 125 C70 95, 88 75, 75 40 C62 75, 58 95, 62 125" fill="%23EBAAB3" opacity="0.75"/><path d="M42 25 C45 35, 55 35, 48 10 C40 25, 40 30, 42 25" fill="%23CBB6D9"/><path d="M50 120 L50 150 M38 125 L38 150 M62 125 L62 150" stroke="%239E8289" stroke-width="3" stroke-linecap="round"/></svg>');
+    transform: rotate(-15deg);
+}
+
+@media (max-width: 680px) {
+    .watercolor-tulips-decor {
+        display: none;
+    }
+}
+
+/* Tarjeta de Texto Romántico Final - Carta Acuarela con Sello y Ramo */
+.memories-footer-card {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.memories-footer-card.watercolor-letter {
+    background: #FFFDFD;
+    color: var(--clr-text-main);
+    border: 2px dashed rgba(229, 192, 197, 0.6);
+    border-radius: 28px;
+    box-shadow: 0 12px 35px rgba(107, 78, 86, 0.08), inset 0 0 25px rgba(255, 255, 255, 0.8);
+    position: relative;
+    padding: 3rem 2.5rem;
+    text-align: left;
+    overflow: visible; /* Permite que sobresalga el ramo */
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+}
+
+.letter-body-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    max-width: calc(100% - 140px);
+    z-index: 2;
+    position: relative;
+}
+
+.memories-footer-card.watercolor-letter .footer-quote {
+    font-family: var(--font-cursive);
+    font-style: italic;
+    font-size: 1.55rem;
+    color: var(--clr-accent); /* Rosa acento elegante */
+    line-height: 1.5;
+    margin-bottom: 0.2rem;
+}
+
+.memories-footer-card.watercolor-letter .footer-desc {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--clr-text-main);
+    margin-bottom: 0.5rem;
+    padding: 0;
+}
+
+.memories-footer-card.watercolor-letter .romantic-signature {
+    font-family: var(--font-elegant);
+    font-size: 1.45rem;
+    color: var(--clr-accent);
+    display: block;
+    letter-spacing: 1px;
+}
+
+/* Sello de Cera Realista (Paleta Rosa Tulipán / Lavanda) */
+.wax-seal-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 0.2rem;
+    z-index: 2;
+    position: relative;
+}
+
+.wax-seal {
+    width: 62px;
+    height: 62px;
+    background: radial-gradient(circle, #ebaab3 0%, #d87f90 100%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(107, 78, 86, 0.25), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+    position: relative;
+    border: 2px solid #ebaab3;
+    transform: rotate(-10deg);
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+}
+
+.wax-seal:hover {
+    transform: rotate(5deg) scale(1.08);
+}
+
+.wax-seal-inner {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(255, 255, 255, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFDF7;
+    font-family: var(--font-elegant);
+    font-size: 1.35rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(107, 78, 86, 0.3);
+}
+
+.wax-seal-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.seal-label {
+    font-family: var(--font-cursive);
+    font-style: italic;
+    font-size: 1.15rem;
+}
+
+.seal-from {
+    font-weight: 600;
+    color: var(--clr-accent);
+}
+
+.seal-to {
+    color: var(--clr-text-main);
+    opacity: 0.9;
+}
+
+/* Ramo de Flores SVG */
+.flower-bouquet-svg-wrapper {
+    position: absolute;
+    right: -15px;
+    bottom: -25px;
+    width: 160px;
+    height: 240px;
+    opacity: 0.95;
+    z-index: 10;
+    pointer-events: none;
+    transform: rotate(-12deg);
+    filter: drop-shadow(-8px 10px 15px rgba(107, 78, 86, 0.18));
+    transition: transform 0.4s ease;
+}
+
+.memories-footer-card.watercolor-letter:hover .flower-bouquet-svg-wrapper {
+    transform: rotate(-8deg) scale(1.03);
+}
+
+/* Tulipanes decorativos en tonos pastel de fondo (Reemplazan a las estrellas leopardo) */
+.bg-tulips-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.bg-tulip {
+    position: absolute;
+    width: 120px;
+    height: 180px;
+    opacity: 0.38;
+    filter: drop-shadow(0 6px 12px rgba(107, 78, 86, 0.1));
+    transition: transform 0.4s ease-out;
+}
+
+.tulip-1 {
+    top: 10%;
+    left: -25px;
+    transform: rotate(-15deg);
+}
+
+.tulip-2 {
+    top: 40%;
+    right: -25px;
+    transform: rotate(20deg);
+}
+
+.tulip-3 {
+    bottom: 30%;
+    left: -35px;
+    transform: rotate(-10deg);
+}
+
+.tulip-4 {
+    bottom: 6%;
+    right: -20px;
+    transform: rotate(15deg);
+}
+
+/* Polaroids Raspables interactivos (Soporte para 4 fotos variables) */
+.scratch-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 5;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: opacity 0.5s ease-out;
+    user-select: none;
+    touch-action: none; /* Previene scroll en móviles */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.15);
+}
+
+/* Tamaños y alturas específicos para las 4 Polaroids (Grandes y Medianas) */
+.polaroid-1 { width: 290px; transform: rotate(-6deg) translateY(10px); }
+.polaroid-1 img, .polaroid-1 .scratch-canvas { height: 250px; }
+
+.polaroid-2 { width: 250px; transform: rotate(5deg) translateY(-15px); }
+.polaroid-2 img, .polaroid-2 .scratch-canvas { height: 215px; }
+
+.polaroid-3 { width: 280px; transform: rotate(-8deg) translateY(15px); }
+.polaroid-3 img, .polaroid-3 .scratch-canvas { height: 240px; }
+
+.polaroid-4 { width: 260px; transform: rotate(7deg) translateY(-5px); }
+.polaroid-4 img, .polaroid-4 .scratch-canvas { height: 225px; }
+
+/* Párrafos y tipografía de la carta romántica extensa */
+.letter-paragraph {
+    font-family: var(--font-primary);
+    font-size: 1.02rem;
+    line-height: 1.9;
+    color: var(--clr-text-main);
+    margin-bottom: 1.4rem;
+    text-indent: 1.8rem; /* Sangría manuscrita real */
+    text-align: justify;
+}
+
+.letter-salutation {
+    font-family: var(--font-cursive);
+    font-style: italic;
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--clr-accent);
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+/* Título Final en Mayúsculas Grande */
+.romantic-footer-title {
+    width: 100%;
+    text-align: center;
+    margin-top: 3.5rem;
+    margin-bottom: 2rem;
+    z-index: 2;
+    position: relative;
+}
+
+.final-romantic-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 3.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--clr-accent);
+    text-shadow: 0 4px 12px rgba(216, 127, 144, 0.18);
+    margin-bottom: 0.8rem;
+}
+
+.footer-hearts {
+    font-size: 1.25rem;
+    letter-spacing: 6px;
+    color: var(--clr-watercolor-pink);
+}
+
+@media (max-width: 580px) {
+    .bg-tulip {
+        width: 80px;
+        height: 120px;
+        opacity: 0.32;
+    }
+    .tulip-3 {
+        display: none;
+    }
+    .memories-footer-card.watercolor-letter {
+        padding: 2.2rem 1.4rem;
+        overflow: hidden; /* Evita desbordamiento en móvil */
+    }
+    .letter-body-content {
+        max-width: 100%;
+    }
+    .flower-bouquet-svg-wrapper {
+        position: relative;
+        right: 0;
+        bottom: -15px;
+        margin: 1.5rem auto 0;
+        width: 130px;
+        height: 195px;
+        order: 2;
+        transform: rotate(0deg);
+    }
+    .memories-footer-card.watercolor-letter:hover .flower-bouquet-svg-wrapper {
+        transform: rotate(0deg) scale(1);
+    }
+    .letter-paragraph {
+        font-size: 0.95rem;
+        line-height: 1.75;
+        text-indent: 1rem;
+    }
+    .final-romantic-title {
+        font-size: 1.9rem;
+        letter-spacing: 3px;
+    }
+    .elegant-text-title {
+        font-size: 2.2rem;
+    }
+    .highlight-title {
+        font-size: 3.1rem;
+    }
+    /* Medidas responsivas para las 4 Polaroids */
+    .polaroid-1 { width: 185px; transform: rotate(-5deg); }
+    .polaroid-1 img, .polaroid-1 .scratch-canvas { height: 160px; }
+
+    .polaroid-2 { width: 165px; transform: rotate(4deg); }
+    .polaroid-2 img, .polaroid-2 .scratch-canvas { height: 140px; }
+
+    .polaroid-3 { width: 180px; transform: rotate(-6deg); }
+    .polaroid-3 img, .polaroid-3 .scratch-canvas { height: 155px; }
+
+    .polaroid-4 { width: 170px; transform: rotate(5deg); }
+    .polaroid-4 img, .polaroid-4 .scratch-canvas { height: 145px; }
+}
+
+/* Keyframes Lock and Key animados */
+@keyframes lockPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 4px 6px rgba(232, 164, 184, 0.15)); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 6px 12px rgba(232, 164, 184, 0.35)); }
+}
+
+@keyframes keyFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-5px) rotate(-8deg); }
+}
+
+/* ==========================================================================
+   ANIMACIONES (KEYFRAMES)
+   ========================================================================== */
+@keyframes fadeFlower {
+    0%, 100% {
+        opacity: 0.25;
+        transform: rotate(var(--rot)) translateY(-55px) scale(0.9);
+        color: var(--clr-watercolor-pink-light);
+    }
+    50% {
+        opacity: 1;
+        transform: rotate(var(--rot)) translateY(-55px) scale(1.15);
+        color: var(--clr-watercolor-pink);
+        filter: drop-shadow(0 0 3px rgba(235, 170, 179, 0.6));
+    }
+}
+
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.22); filter: drop-shadow(0 0 5px rgba(216, 127, 144, 0.5)); }
+}
+
+@keyframes pulseText {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 0.95; }
+}
+
+@keyframes keyholePulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes shakeDots {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-8px); }
+    40%, 80% { transform: translateX(8px); }
+}
+
+@keyframes heartGlowPulse {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(216, 127, 144, 0.4)); }
+    50% { transform: scale(1.18); filter: drop-shadow(0 0 15px rgba(216, 127, 144, 0.7)); }
+}
+
+@keyframes slideCardUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popPress {
+    0% { transform: translateY(0) scale(1); }
+    40% { transform: translateY(4px) scale(0.93); }
+    100% { transform: translateY(-4px) scale(1.08); }
+}
+
+@keyframes shakeMild {
+    0%, 100% { transform: scale(1.1) translate(0, 0) rotate(0deg); }
+    20%, 60% { transform: scale(1.1) translate(-2px, 1px) rotate(-0.5deg); }
+    40%, 80% { transform: scale(1.1) translate(2px, -1px) rotate(0.5deg); }
+}
+
+@keyframes shakeIntense {
+    0%, 100% { transform: scale(1.25) translate(0, 0) rotate(0deg); }
+    10%, 50%, 90% { transform: scale(1.25) translate(-4px, 2px) rotate(-1.5deg); }
+    30%, 70% { transform: scale(1.27) translate(4px, -2px) rotate(1.5deg); }
+    20%, 60%, 80% { transform: scale(1.23) translate(-2px, -2px) rotate(-1deg); }
+}
+
+@keyframes shakeMax {
+    0%, 100% { transform: scale(1.45) translate(0, 0) rotate(0deg); }
+    10%, 30%, 50%, 70%, 90% { transform: scale(1.48) translate(-8px, 4px) rotate(-3deg); }
+    20%, 40%, 60%, 80% { transform: scale(1.42) translate(8px, -4px) rotate(3deg); }
+}
+
+@keyframes flashShockwave {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2.2);
+    }
+}
+
+@keyframes photoBurst {
+    0% {
+        transform: translate(0, 0) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    18% {
+        opacity: 1;
+        /* Efecto 3D saliendo hacia la pantalla (escala 1.35x) con impulso vertical */
+        transform: translate(calc(var(--tx) * 0.35), calc(var(--ty) * 0.35 - 80px)) scale(1.35) rotate(calc(var(--rot) * 0.35));
+    }
+    45% {
+        opacity: 1;
+        transform: translate(var(--tx), var(--ty)) scale(1) rotate(var(--rot));
+    }
+    100% {
+        opacity: 1;
+        /* Asentamiento suave de flotación, retiene opacidad completa y escala */
+        transform: translate(var(--tx), calc(var(--ty) + 12px)) scale(1) rotate(var(--rot));
+    }
+}
+
+@keyframes particleBurst {
+    0% {
+        transform: translate(0, 0) scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(var(--scale)) rotate(var(--rot));
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   MEDIDAS RESPONSIVAS
+   ========================================================================== */
+@media (max-width: 900px) {
+    /* El diseño en paralelo se apila en tabletas y móviles */
+    .split-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    #unlocked-section {
+        padding: 3rem 1rem;
+    }
+    
+    .video-card {
+        max-width: 580px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .text-card {
+        max-width: 580px;
+        margin: 0 auto;
+        width: 100%;
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .lock-card {
+        padding: 2rem 1.25rem;
+    }
+    
+    .key-btn {
+        width: 62px;
+        height: 62px;
+        font-size: 1.35rem;
+    }
+    
+    .key-empty {
+        width: 62px;
+        height: 62px;
+    }
+    
+    .favorite-title {
+        font-size: 2.2rem;
+    }
+    
+    .text-card {
+        padding: 2.2rem 1.25rem;
+    }
+    
+    .play-btn-circle {
+        width: 68px;
+        height: 68px;
+    }
+}
