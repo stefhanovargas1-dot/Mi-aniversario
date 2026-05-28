@@ -526,23 +526,24 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (!localVideo || !youtubeIframe) return;
 
-        // Intentar detectar si existe "assets/video.mp4" localmente
-        fetch('assets/video.mp4', { method: 'HEAD' })
-            .then(res => {
-                if (res.ok) {
-                    // Si existe el archivo mp4, activar reproductor local y eliminar iframe
-                    localVideo.classList.remove('hidden');
-                    youtubeIframe.style.display = 'none';
-                    youtubeIframe.remove();
-                } else {
-                    // Si no existe, eliminar el reproductor local y dejar el iframe
-                    localVideo.remove();
-                }
-            })
-            .catch(() => {
-                // En caso de error, usar YouTube por defecto
-                localVideo.remove();
-            });
+        // Por defecto, intentamos cargar el video local.
+        // Si hay un error (el archivo no existe, la ruta es incorrecta o el servidor devuelve un 404 HTML)
+        localVideo.addEventListener('error', () => {
+            // Eliminamos el reproductor local y nos aseguramos de que el iframe de YouTube se muestre
+            localVideo.remove();
+            youtubeIframe.style.display = 'block';
+        }, true);
+
+        // Si los metadatos se cargan con éxito, significa que el archivo local existe y es un video reproducible
+        localVideo.addEventListener('loadedmetadata', () => {
+            // Removemos el iframe de YouTube para ahorrar recursos y revelamos el reproductor local
+            youtubeIframe.remove();
+            localVideo.classList.remove('hidden');
+            localVideo.style.display = 'block';
+        });
+
+        // Forzar al navegador a iniciar la evaluación del video local
+        localVideo.load();
     }
     
     // Inicialización de tarjetas raspables interactivos ("Scratch Card")
